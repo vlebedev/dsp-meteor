@@ -4,6 +4,11 @@
     "Bootstrap3-Typeahead": {},
     "collection2": {},
     "autoform": {},
-    "npm": {}
+    "npm": {},
+    "spin": {},
+    "async": {},
+    "collectionFS": {},
+    "iron-router": {},
+    "prismjs": {}
   }
 }

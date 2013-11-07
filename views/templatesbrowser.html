@@ -1,0 +1,41 @@
+<template name="templatesBrowser">
+
+<div class="container">
+
+    <div class="row">
+        <div class="cols-xs-12">
+            <h3>Template Browser<h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-4">
+
+            <select size="{{count}}" class="form-control template-picker-js well">
+                {{#each templates}}
+                    <option value="{{nmb}}">{{name}} ({{nmb}})</option>
+                {{/each}}
+            </select>
+
+        </div>
+
+        <div class="col-xs-8 well">
+            <h4>{{sel_name}}</h4>
+            {{#if sel_enabled}}
+                Enabled,&nbsp;
+            {{else}}
+                Disabled,&nbsp;
+            {{/if}}
+            {{#if sel_approved}}
+                Approved
+            {{else}}
+                Not approved
+            {{/if}}
+            <br>
+            <pre>{{sel_data}}</pre></div>
+        </div>
+
+    </div>
+</div>
+
+</template>

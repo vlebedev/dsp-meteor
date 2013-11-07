@@ -1,3 +1,8 @@
+@RTBTemplate = new Meteor.Collection 'template'
+@Macros = new Meteor.Collection 'macros'
+@Files = new Meteor.Collection 'files'
+@FilesFS = new CollectionFS 'files'
+
 @Creatives = new Meteor.Collection2 'creatives',
     schema:
         CreativeNmb:

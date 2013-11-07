@@ -31,21 +31,10 @@ class @BannerStore
             cb null, @logon
         return
 
-    createCreative: (data, cb) ->
-
-        @createLogon (error, logon) =>
-            if !!error
-                cb error, null
-                return
-            else
-                @client.methodCall 'BannerStore.CreateCreative',
-                    [logon, data], (error, result) ->
-                        if !!error
-                            cb error, null
-                            return
-                        else
-                            cb null, result
-                            return
-            return
-
-
+    methodCall: (method, data, cb) ->
+        async.waterfall [
+            (callback) =>
+                @createLogon callback
+            , (logon, callback) =>
+                @client.methodCall "BannerStore.#{method}", [logon, data], callback
+        ], cb

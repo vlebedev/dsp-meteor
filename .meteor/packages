@@ -14,3 +14,9 @@ collection2
 autoform
 npm
 moment
+async
+collectionFS
+accounts-password
+cfs-public-folder
+iron-router
+accounts-ui-unstyled
