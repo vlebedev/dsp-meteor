@@ -1,5 +1,3 @@
-@Advertisers = new Meteor.Collection null
-
 Template.creativesBrowser.creatives = ->
     Creatives.find {}, { sort: { CreativeNmb: -1 } }
 

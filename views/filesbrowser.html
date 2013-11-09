@@ -1,19 +1,19 @@
 <template name="filesBrowser">
+
 <div class="container">
+
     <div class="row">
-         <div class="cols-xs-12">
-            <h3>
-                Files Browser
-                <div class="pull-right">
-                    {{#if show_spinner}}
-                        <img src="/img/spinner.gif" height="20" width="20"/>
-                    {{/if}}
-                    <button class="btn btn-success button-upload-files-js"><span class="glyphicon glyphicon-upload"></span>&nbsp;Upload File(s)</button>
-                    <button class="btn btn-primary button-refresh-files-js"><span class="glyphicon glyphicon-refresh"></span>&nbsp;Refresh</button>
-                </div>
-            </h3>
+         <div class="cols-md-12">
+            <div class="pull-right">
+                {{#if show_spinner}}
+                    <img src="/img/spinner.gif" height="20" width="20"/>
+                {{/if}}
+                <button class="btn btn-success button-upload-files-js"><span class="glyphicon glyphicon-upload"></span>&nbsp;Upload File(s)</button>
+                <button class="btn btn-primary button-refresh-files-js"><span class="glyphicon glyphicon-refresh"></span>&nbsp;Refresh</button>
+            </div>
         </div>
     </div>
+
     {{#if show_upload}}
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -21,38 +21,45 @@
         </div>
     </div>
     {{/if}}
-    <div class="row">
-        <div class="cols-xs-12">
 
-            {{#if show_alert_synced}}
-            <div class="alert alert-success">
-                <button type="button" class="close alert-files-synced-close-js" aria-hidden="true">&times;</button>
-                  <strong>Success! </strong>Files are <strong>sync'ed</strong> with Yandex BannerStore service.
+    <div class="row" style="margin-top: 10px;">
+        <div class="cols-md-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Files Browser</h3>
+                </div>
+                <div class="panel-body">
+                    {{#if show_alert_synced}}
+                        <div class="alert alert-success">
+                            <button type="button" class="close alert-files-synced-close-js" aria-hidden="true">&times;</button>
+                              <strong>Success! </strong>Files are <strong>sync'ed</strong> with Yandex BannerStore service.
+                        </div>
+                    {{/if}}
+                    {{#if show_alert_uploaded}}
+                        <div class="alert alert-success">
+                            <button type="button" class="close alert-files-uploaded-close-js" aria-hidden="true">&times;</button>
+                              <strong>Success! </strong>Files are <strong>uploaded</strong> to Yandex BannerStore service.
+                        </div>
+                    {{/if}}
+                    <table class="table table-hover">
+                        <thead>
+                            <th>Number</th>
+                            <th>Name</th>
+                            <th>Height</th>
+                            <th>Width</th>
+                            <th>Size</th>
+                            <th>Type</th>
+                            <th>Url</th>
+                            <th>Tag</th>
+                        </thead>
+                        <tbody>
+                            {{#each files}}
+                                {{> file}}
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            {{/if}}
-            {{#if show_alert_uploaded}}
-            <div class="alert alert-success">
-                <button type="button" class="close alert-files-uploaded-close-js" aria-hidden="true">&times;</button>
-                  <strong>Success! </strong>Files are <strong>uploaded</strong> to Yandex BannerStore service.
-            </div>
-            {{/if}}
-            <table class="table table-hover">
-                <thead>
-                    <th>Number</th>
-                    <th>Name</th>
-                    <th>Height</th>
-                    <th>Width</th>
-                    <th>Size</th>
-                    <th>Type</th>
-                    <th>Url</th>
-                    <th>Tag</th>
-                </thead>
-                <tbody>
-                    {{#each files}}
-                        {{> file}}
-                    {{/each}}
-                </tbody>
-            </table>
         </div>
     </div>
 </div>

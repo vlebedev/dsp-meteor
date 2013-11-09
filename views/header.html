@@ -1,0 +1,27 @@
+<template name="header">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                {{#link route='dashboard' class="navbar-brand"}}DSP Demo{{/link}}
+            </div>
+            <div class="collapse navbar-collapse">
+                {{#if currentUser}}
+                <ul class="nav navbar-nav">
+                    <li class="{{isSelected "creativesBrowser"}}">{{#link route='creatives'}}Creatives{{/link}}</li>
+                    <li class="{{isSelected "templatesBrowser"}}">{{#link route='templates'}}Templates{{/link}}</a></li>
+                    <li class="{{isSelected "filesBrowser"}}">{{#link route='files'}}Files{{/link}}</a></li>
+                </ul>
+                <ul class="nav navbar-nav pull-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;{{username}}</a></li>
+                    <li><a href="/sign-out"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Sign out</a><li>
+                </ul>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</template>

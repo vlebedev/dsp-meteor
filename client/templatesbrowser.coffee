@@ -6,33 +6,13 @@ Template.templatesBrowser.templates = ->
 Template.templatesBrowser.count = ->
     RTBTemplate.find({}).count()
 
-Template.templatesBrowser.sel_data = ->
-    nmb = Session.get 'template_nmb'
-    if !!nmb
-        return RTBTemplate.findOne({nmb: nmb})?.data
-    else
-        ''
-Template.templatesBrowser.sel_name = ->
-    nmb = Session.get 'template_nmb'
-    if !!nmb
-        return RTBTemplate.findOne({nmb: nmb})?.name
-    else
-        ''
+Template.templatesBrowser.isSelected = ->
+    return if @nmb == Session.get 'template_nmb' then 'active' else ''
 
-Template.templatesBrowser.sel_enabled = ->
+Template.templatesBrowser.selected = ->
     nmb = Session.get 'template_nmb'
-    if !!nmb
-        return RTBTemplate.findOne({nmb: nmb})?.isenabled
-    else
-        ''
-
-Template.templatesBrowser.sel_approved = ->
-    nmb = Session.get 'template_nmb'
-    if !!nmb
-        return RTBTemplate.findOne({nmb: nmb})?.isapproved
-    else
-        ''
+    return RTBTemplate.findOne({ nmb: nmb })
 
 Template.templatesBrowser.events =
-    'change .template-picker-js': (e) ->
-        Session.set 'template_nmb', parseInt $(e.target).val()
+    'click .link-template-chooser-js': (e) ->
+        Session.set 'template_nmb', @nmb

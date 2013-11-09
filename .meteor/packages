@@ -19,4 +19,5 @@ collectionFS
 accounts-password
 cfs-public-folder
 iron-router
-accounts-ui-unstyled
+accounts-entry
+accounts-ui

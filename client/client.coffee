@@ -1,14 +1,34 @@
+@Advertisers = new Meteor.Collection null
+
 Router.configure
     layoutTemplate: 'layout'
+    notFoundTemplate: '404'
+    loadingTemplate: 'loading'
+    yieldTemplates:
+        header:
+            to: 'header'
 
 Router.map ->
-    @route 'creatives', { path: '/', template: 'creativesBrowser' }
-    @route 'templates', { path: '/templates', template: 'templatesBrowser' }
-    @route 'files', { path: '/files', template: 'filesBrowser' }
+
+    @route 'home',      path: '/',          template: 'home'
+    @route 'dashboard', path: '/dashboard', template: 'dashboard'
+    @route 'creatives', path: '/creatives', template: 'creativesBrowser'
+    @route 'templates', path: '/templates', template: 'templatesBrowser'
+    @route 'files',     path: '/files',     template: 'filesBrowser'
+
     @route 'creative/:nmb/view',
-        template: "creativeViewer"
+        template: 'creativeViewer'
         before: ->
             Session.set 'current_creative', @params.nmb
+
+class @AppController extends RouteController
+
+  before: ->
+    if _.isNull Meteor.user()
+      Router.go Router.path 'home'
+
+Handlebars.registerHelper "isSelected", (name) ->
+    if name == Router.current().template then 'active' else ''
 
 Deps.autorun ->
     Meteor.subscribe 'template'

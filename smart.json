@@ -1,14 +1,13 @@
 {
-  "packages": {
-    "bootstrap-3": {},
-    "Bootstrap3-Typeahead": {},
-    "collection2": {},
-    "autoform": {},
-    "npm": {},
-    "spin": {},
-    "async": {},
-    "collectionFS": {},
-    "iron-router": {},
-    "prismjs": {}
-  }
+    "packages": {
+        "bootstrap-3": {},
+        "Bootstrap3-Typeahead": {},
+        "collection2": {},
+        "autoform": {},
+        "npm": {},
+        "async": {},
+        "collectionFS": {},
+        "iron-router": {},
+        "accounts-entry": {}
+    }
 }

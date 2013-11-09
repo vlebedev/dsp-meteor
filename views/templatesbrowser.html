@@ -2,39 +2,43 @@
 
 <div class="container">
 
-    <div class="row">
-        <div class="cols-xs-12">
-            <h3>Template Browser<h3>
+    <div class="row" style="margin-top: 10px;">
+        <div class="cols-md-12">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Template Browser</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <legend>Template Name</legend>
+                            <ul class="nav nav-pills nav-stacked">
+                                {{#each templates}}
+                                    <li class="{{isSelected}}"><a href="#" class="link-template-chooser-js">{{name}} ({{nmb}})</a></li>
+                                {{/each}}
+                            </ul>
+                         </div>
+
+                        <div class="col-md-7">
+                            <legend>Template Data</legend>
+                            {{#if selected.isenabled}}
+                                Enabled,&nbsp;
+                            {{else}}
+                                Disabled,&nbsp;
+                            {{/if}}
+                            {{#if selected.isapproved}}
+                                Approved
+                            {{else}}
+                                Not approved
+                            {{/if}}
+                            <br>
+                            <pre>{{selected.data}}</pre></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-4">
-
-            <select size="{{count}}" class="form-control template-picker-js well">
-                {{#each templates}}
-                    <option value="{{nmb}}">{{name}} ({{nmb}})</option>
-                {{/each}}
-            </select>
-
-        </div>
-
-        <div class="col-xs-8 well">
-            <h4>{{sel_name}}</h4>
-            {{#if sel_enabled}}
-                Enabled,&nbsp;
-            {{else}}
-                Disabled,&nbsp;
-            {{/if}}
-            {{#if sel_approved}}
-                Approved
-            {{else}}
-                Not approved
-            {{/if}}
-            <br>
-            <pre>{{sel_data}}</pre></div>
-        </div>
-
     </div>
 </div>
 

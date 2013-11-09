@@ -1,121 +1,123 @@
 <template name="creativeViewer">
 
 {{#with creative}}
+    <div class="container">
 
-    <div class="row">
-        <div class="col-md-12">
-            <h3>
-                {{CreativeName}}
-                <div class="pull-right">
-                    <button class="btn btn-success button-edit-creatives-js"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</button>
-                    <button class="btn btn-danger button-submit-creative-js"><span class="glyphicon glyphicon-upload"></span>&nbsp;Submit for Approval</button>
-                    <button class="btn btn-primary button-refresh-creatives-js"><span class="glyphicon glyphicon-refresh"></span>&nbsp;Refresh</button>
-                </div>
-            </h3>
-        </div>
-    </div>
-
-    <div class="row" style="margin-top: 10px;">
-        <div class="col-md-6">
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Creative</h3>
-                </div>
-                <div class="panel-body">
-                    <legend>Properties</legend>
-                    <table class="table table-condensed table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Property</th>
-                                <th>Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><strong>CreativeNmb</strong></td><td>{{CreativeNmb}}</td></tr>
-                            <tr><td><strong>CreativeName</strong></td><td>{{CreativeName}}</td></tr>
-                            <tr><td><strong>TnsAdvertiserNmb</strong></td><td> {{Advertiser}} ({{TnsAdvertiserNmb}})</td></tr>
-                            <tr><td><strong>Tag</strong></td><td>{{Tag}}</td></tr>
-                            <tr><td><strong>IsDeployed</strong></td><td>{{IsDeployed}}</td></tr>
-                            <tr><td><strong>Token</strong><td></td>{{Token}}</td></tr>
-                            <tr><td><strong>Properties</strong></td><td>{{Properties}}</td></tr>
-                            <tr><td><strong>ExpireDate</strong></td><td>{{FmtDate ExpireDate}}</td></tr>
-                            <tr><td><strong>Note</strong></td><td>{{Note}}</td></tr>
-                        <tbody>
-                    </table>
-                </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>
+                    {{CreativeName}}
+                    <div class="pull-right">
+                        <button class="btn btn-success button-edit-creatives-js"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</button>
+                        <button class="btn btn-danger button-submit-creative-js"><span class="glyphicon glyphicon-upload"></span>&nbsp;Submit for Approval</button>
+                        <button class="btn btn-primary button-refresh-creatives-js"><span class="glyphicon glyphicon-refresh"></span>&nbsp;Refresh</button>
+                    </div>
+                </h3>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="panel panel-danger">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Moderation</h3>
+
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Creative</h3>
+                    </div>
+                    <div class="panel-body">
+                        <legend>Properties</legend>
+                        <table class="table table-condensed table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Property</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>CreativeNmb</strong></td><td>{{CreativeNmb}}</td></tr>
+                                <tr><td><strong>CreativeName</strong></td><td>{{CreativeName}}</td></tr>
+                                <tr><td><strong>TnsAdvertiserNmb</strong></td><td> {{Advertiser}} ({{TnsAdvertiserNmb}})</td></tr>
+                                <tr><td><strong>Tag</strong></td><td>{{Tag}}</td></tr>
+                                <tr><td><strong>IsDeployed</strong></td><td>{{IsDeployed}}</td></tr>
+                                <tr><td><strong>Token</strong><td></td>{{Token}}</td></tr>
+                                <tr><td><strong>Properties</strong></td><td>{{Properties}}</td></tr>
+                                <tr><td><strong>ExpireDate</strong></td><td>{{FmtDate ExpireDate}}</td></tr>
+                                <tr><td><strong>Note</strong></td><td>{{Note}}</td></tr>
+                            <tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <legend>Moderation Status</legend>
-                    <table class="table table-condensed table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Property</th>
-                                <th>Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#with Moderation}}
-                            <tr><td><strong>StatusNmb</strong></td><td>{{FmtStatus StatusNmb}}</td></tr>
-                            <tr><td><strong>ModeratedDate</strong></td><td>{{FmtDate ModeratedDate}}</td></tr>
-                            <tr><td><strong>Message</strong></td><td>{{Message}}</td></tr>
-                            <tr><td><strong>RequestDate</strong></td><td>{{RequestedDate}}</td></tr>
-                            {{/with}}
-                        <tbody>
-                    </table>
-                    {{#if Moderation.Log}}
-                    <legend>Moderation Log</legend>
-                    <table class="table table-condensed table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Property</th>
-                                <th>Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each Moderation.Log}}
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Moderation</h3>
+                    </div>
+                    <div class="panel-body">
+                        <legend>Moderation Status</legend>
+                        <table class="table table-condensed table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Property</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#with Moderation}}
                                 <tr><td><strong>StatusNmb</strong></td><td>{{FmtStatus StatusNmb}}</td></tr>
-                                <tr><td><strong>Date</strong></td><td>{{FmtDate Date}}</td></tr>
+                                <tr><td><strong>ModeratedDate</strong></td><td>{{FmtDate ModeratedDate}}</td></tr>
                                 <tr><td><strong>Message</strong></td><td>{{Message}}</td></tr>
-                            {{/each}}
-                        <tbody>
-                    </table>
-                    {{/if}}
+                                <tr><td><strong>RequestDate</strong></td><td>{{RequestedDate}}</td></tr>
+                                {{/with}}
+                            <tbody>
+                        </table>
+                        {{#if Moderation.Log}}
+                        <legend>Moderation Log</legend>
+                        <table class="table table-condensed table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Property</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each Moderation.Log}}
+                                    <tr><td><strong>StatusNmb</strong></td><td>{{FmtStatus StatusNmb}}</td></tr>
+                                    <tr><td><strong>Date</strong></td><td>{{FmtDate Date}}</td></tr>
+                                    <tr><td><strong>Message</strong></td><td>{{Message}}</td></tr>
+                                {{/each}}
+                            <tbody>
+                        </table>
+                        {{/if}}
+                    </div>
                 </div>
-            </div>
-         </div>
-    </div>
-    <div class="row" style="margin-top: 10px;">
-        <div class="col-md-12">
-            <div class="panel panel-warning">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Template</h3>
-                </div>
-                <div class="panel-body">
-                    <pre>{{TemplateData}}</pre>
+             </div>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-12">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Template</h3>
+                    </div>
+                    <div class="panel-body">
+                        <pre>{{TemplateData}}</pre>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    {{#if Data}}
-    <div class="row" style="margin-top: 10px;">
-        <div class="col-md-12">
-            <div class="panel panel-warning">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Data</h3>
-                </div>
-                <div class="panel-body">
-                    <pre>{{Data}}</pre>
+        {{#if Data}}
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-12">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Data</h3>
+                    </div>
+                    <div class="panel-body">
+                        <pre>{{Data}}</pre>
+                    </div>
                 </div>
             </div>
         </div>
+        {{/if}}
     </div>
-    {{/if}}
 {{/with}}
 
 </template>
