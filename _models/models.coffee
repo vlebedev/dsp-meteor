@@ -7,80 +7,80 @@
     schema:
         CreativeNmb:
             type: Number
-            label: 'Номер креатива'
+            label: 'Creative Number'
         CreativeName:
             type: String
-            label: 'Название креатива'
+            label: 'Creative Name'
             max: 200
         TnsAdvertiserNmb:
             type: Number
-            label: 'Идентификатор рекламодателя'
+            label: 'TNS Advertiser'
         TemplateNmb:
             type: Number
-            label: 'Идентификатор шаблона'
+            label: 'Template'
         ExpireDate:
             type: Date
-            label: 'Момент экспирации'
+            label: 'Expires At'
         Tag:
             type: String
-            label: 'Метка кретива'
+            label: 'Tag'
             max: 200
         Note:
             type: String
-            label: 'Произвольное описание креатива'
+            label: 'Note'
             max: 1024
             optional: true
         TemplateData:
             type: String
-            label: 'Фрагмент кода с нераскрытыми макросами'
+            label: 'Code fragment with unexpanded macros'
             optional: true
         Data:
             type: String
-            label: 'Фрагмент кода с раскрытыми макросами'
+            label: 'Code fragment with expanded macros'
             optional: true
         IsDeployed:
             type: Boolean
-            label: 'Медиафайлы доступны по прямым ссылкам'
+            label: 'Direct links to media files are available'
             optional: true
         Token:
             type: String
-            label: 'Цифровая подпись для участия в аукционе'
+            label: 'Digital signature'
             optional: true
         Properties:
             type: String
-            label: 'Строка для участия в аукционе'
+            label: 'Auction properties'
             optional: true
         Moderation:
             type: Object
             optional: true
         'Moderation.StatusNmb':
             type: Number
-            label: 'Результат проверки креатива'
+            label: 'Moderation status'
             optional: true
         'Moderation.ModeratedDate':
             type: Date
-            label: 'Дата и время проверки'
+            label: 'Date and time of last moderation response'
             optional: true
         'Moderation.Message':
             type: String
-            label: 'Сообщение от модератора'
+            label: 'Last message from moderator'
             optional: true
         'Moderation.RequestDate':
             type: Date
-            label: 'Дата и время отправки креатива на проверку'
+            label: 'Date and time of last moderation request'
             optional: true
         'Moderation.Log':
             type: [Object]
             optional: true
         'Moderation.Log.Date':
             type: Date
-            label: 'Дата и время проверки'
+            label: 'Date and time of moderation'
             optional: true
         'Moderation.Log.StatusNmb':
             type: Number
-            label: 'Результат проверки креатива'
+            label: 'Moderation status'
             optional: true
         'Moderation.Log.Message':
             type: String
-            label: 'Сообщение от модератора'
+            label: 'Message from moderator'
             optional: true

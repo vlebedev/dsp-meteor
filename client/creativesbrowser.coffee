@@ -10,7 +10,8 @@ Template.creativesBrowser.helpers
 
 Template.creativesBrowser.events
     'click .button-new-creative-js': (e) ->
-        Session.set 'page_new_creative', true
+        Session.set 'currentCreative', null
+        Router.go '/creative/edit/0'
 
     'click .button-refresh-creatives-js': (e) ->
         Session.set 'show_spinner', true
@@ -39,9 +40,9 @@ Template.creative.helpers
         return moment(@ExpireDate).format("YYYY-MM-DD HH:mm:ss")
 
     Advertiser: ->
-        a = Advertisers.findOne { nmb: @TnsAdvertiserNmb }
-        if !!a
-            return a.name
-        else
-            Meteor.call 'getAdvertiserName', @TnsAdvertiserNmb, (error, result) =>
-                Advertisers.insert { nmb: @TnsAdvertiserNmb, name: result }
+        n = GetAdvertiserName @TnsAdvertiserNmb
+        return "#{n} (#{@TnsAdvertiserNmb})"
+
+    Template: ->
+        n = RTBTemplate.findOne({ nmb: @TemplateNmb })?.name
+        return "#{n} (#{@TemplateNmb})"

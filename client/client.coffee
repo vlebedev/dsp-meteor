@@ -16,10 +16,15 @@ Router.map ->
     @route 'templates', path: '/templates', template: 'templatesBrowser'
     @route 'files',     path: '/files',     template: 'filesBrowser'
 
-    @route 'creative/:nmb/view',
-        template: 'creativeViewer'
+    @route 'creative/edit/:nmb',
+        template: 'editCreative'
         before: ->
-            Session.set 'current_creative', @params.nmb
+            Session.set 'edit_creative', parseInt(@params.nmb)
+
+    @route 'creative/view/:nmb',
+        template: 'viewCreative'
+        before: ->
+            Session.set 'view_creative', parseInt(@params.nmb)
 
 class @AppController extends RouteController
 
@@ -42,4 +47,8 @@ Meteor.startup ->
     Session.setDefault 'show_alert_files_uploaded', false
     Session.setDefault 'show_alert_files_synced', false
     Session.setDefault 'show_upload', false
-    Session.setDefault 'current_creative', null
+    Session.setDefault 'view_creative', null
+    Session.setDefault 'edit_creative', null
+    Session.setDefault 'show_success', false
+
+

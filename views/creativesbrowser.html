@@ -2,16 +2,18 @@
     <div class="container">
 
         <div class="row">
-            <div class="pull-right">
-                {{#if show_spinner}}
-                    <img src="/img/spinner.gif" height="20" width="20"/>
-                {{/if}}
-                <button class="btn btn-success button-new-creative-js"><span class="glyphicon glyphicon-plus"></span>&nbsp;New Creative</button>
-                <button class="btn btn-primary button-refresh-creatives-js"><span class="glyphicon glyphicon-refresh"></span>&nbsp;Refresh</button>
+            <div class="col-md-12">
+                <div class="pull-right">
+                    {{#if show_spinner}}
+                        <img src="/img/spinner.gif" height="20" width="20"/>
+                    {{/if}}
+                    <button class="btn btn-success button-new-creative-js"><span class="glyphicon glyphicon-plus"></span>&nbsp;New Creative</button>
+                    <button class="btn btn-primary button-refresh-creatives-js"><span class="glyphicon glyphicon-refresh"></span>&nbsp;Refresh</button>
+                </div>
             </div>
         </div>
 
-        <div class="row" style="margin-top: 40px;">
+        <div class="row" style="margin-top: 10px;">
             <div class="col-md-12">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -30,6 +32,7 @@
                                 <th>Name</th>
                                 <th>Advertiser</th>
                                 <th>Expires At</th>
+                                <th>Template</th>
                                 <th>Tag</th>
                                 <th>Is Deployed</th>
                                 <th>Status</th>
@@ -54,12 +57,13 @@
     <td>{{CreativeName}}</td>
     <td>{{Advertiser}}</td>
     <td>{{ExpireDate}}</td>
+    <td>{{Template}}</th>
     <td>{{Tag}}</td>
     <td>{{IsDeployed}}</td>
     <td>{{Status}}</td>
     <td>
-        <a href="/creative/{{CreativeNmb}}/view" class="link-view-creative-js"><span class="glyphicon glyphicon-eye-open"></a>&nbsp;
-        <a href="/creative/{{CreativeNmb}}/edit" class="link-edit-creative-js"><span class="glyphicon glyphicon-edit"></span></a>
+        <a href="/creative/view/{{CreativeNmb}}" class="link-view-creative-js"><span class="glyphicon glyphicon-eye-open"></a>&nbsp;
+        <a href="/creative/edit/{{CreativeNmb}}/" class="link-edit-creative-js"><span class="glyphicon glyphicon-edit"></span></a>
     </td>
 </tr>
 </template>

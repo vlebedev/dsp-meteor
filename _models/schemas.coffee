@@ -1,24 +1,24 @@
 @Schema = {}
 
-@Schema.newCreative = new SimpleSchema
+@Schema.basicDetails = new SimpleSchema
     CreativeName:
         type: String
-        label: 'Название креатива'
+        label: 'Creative name'
         max: 200
     TnsAdvertiserNmb:
         type: Number
-        label: 'Идентификатор рекламодателя'
+        label: 'Advertiser'
     TemplateNmb:
         type: Number
-        label: 'Идентификатор шаблона'
+        label: 'Template'
     ExpireDate:
         type: Date
-        label: 'Момент экспирации'
+        label: 'Expires At'
     Tag:
         type: String
-        label: 'Метка креатива'
+        label: 'Tag'
         max: 200
     Note:
         type: String
-        label: 'Произвольное описание креатива'
+        label: 'Note'
         max: 1024

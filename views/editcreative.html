@@ -1,0 +1,56 @@
+<template name="editCreative">
+
+    <div class="container">
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-12">
+
+                <div class="panel panel-success">
+
+                    <div class="panel-heading">
+                        {{#if currentCreative}}
+                            <h3 class="panel-title">Edit Creative</h3>
+                        {{else}}
+                            <h3 class="panel-title">New Creative</h3>
+                        {{/if}}
+                    </div>
+
+                    <div class="panel-body">
+                        {{#if showSuccess}}
+                            <div class="alert alert-success">
+                                <button type="button" class="close alert-close-success-js" aria-hidden="true">&times;</button>
+                                <strong>Success! </strong>Creative has been saved into Yandex BannerStore.
+                            </div>
+                        {{/if}}
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="well">
+                                    <ul class="nav nav-pills nav-stacked" id="myTab">
+                                        <li class="active"><a href="#basic" data-toggle="pill">Basic details</a></li>
+                                        <li><a href="#mrkt" data-toggle="pill">Macros</a></li>
+                                        <li><a href="#trgt" data-toggle="pill">Targeting</a></li>
+                                        <li><a href="#tns" data-toggle="pill">TNS Data</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-md-10">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="basic">{{> basicDetailsForm}}</div>
+                                    <div class="tab-pane" id="mrkt">...profile</div>
+                                    <div class="tab-pane" id="trgt">...messages</div>
+                                    <div class="tab-pane" id="tns">...settings</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</template>

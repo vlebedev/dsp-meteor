@@ -1,18 +1,18 @@
-<template name="creativeViewer">
+<template name="viewCreative">
 
 {{#with creative}}
     <div class="container">
 
         <div class="row">
             <div class="col-md-12">
-                <h3>
+                <h4>
                     {{CreativeName}}
                     <div class="pull-right">
                         <button class="btn btn-success button-edit-creatives-js"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</button>
                         <button class="btn btn-danger button-submit-creative-js"><span class="glyphicon glyphicon-upload"></span>&nbsp;Submit for Approval</button>
                         <button class="btn btn-primary button-refresh-creatives-js"><span class="glyphicon glyphicon-refresh"></span>&nbsp;Refresh</button>
                     </div>
-                </h3>
+                </h4>
             </div>
         </div>
 
@@ -35,6 +35,7 @@
                                 <tr><td><strong>CreativeNmb</strong></td><td>{{CreativeNmb}}</td></tr>
                                 <tr><td><strong>CreativeName</strong></td><td>{{CreativeName}}</td></tr>
                                 <tr><td><strong>TnsAdvertiserNmb</strong></td><td> {{Advertiser}} ({{TnsAdvertiserNmb}})</td></tr>
+                                <tr><td><strong>Template</strong></td><td>{{Template}}</td></tr>
                                 <tr><td><strong>Tag</strong></td><td>{{Tag}}</td></tr>
                                 <tr><td><strong>IsDeployed</strong></td><td>{{IsDeployed}}</td></tr>
                                 <tr><td><strong>Token</strong><td></td>{{Token}}</td></tr>

@@ -1,13 +1,13 @@
-Template.creativeViewer.creative = ->
-    Creatives.findOne { CreativeNmb: Number(Session.get 'current_creative') }
+Template.viewCreative.creative = ->
+    Creatives.findOne { CreativeNmb: Session.get 'view_creative' }
 
 htmlEscape = (str) ->
     return String(str).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
-Template.creativeViewer.TemplateData = ->
+Template.viewCreative.TemplateData = ->
     @TemplateData
 
-Template.creativeViewer.helpers
+Template.viewCreative.helpers
 
     FmtStatus: (nmb) ->
         switch nmb
@@ -32,3 +32,7 @@ Template.creativeViewer.helpers
         else
             Meteor.call 'getAdvertiserName', @TnsAdvertiserNmb, (error, result) =>
                 Advertisers.insert { nmb: @TnsAdvertiserNmb, name: result }
+
+    Template: ->
+        n = RTBTemplate.findOne({ nmb: @TemplateNmb })?.name
+        return "#{n} (#{@TemplateNmb})"

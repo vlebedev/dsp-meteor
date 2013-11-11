@@ -48,6 +48,17 @@ FilesFSHandler =
 
 FilesFS.fileHandlers FilesFSHandler
 
+Creatives.allow
+
+    update: ->
+        return true
+
+    insert: ->
+        return true
+
+    remove: ->
+        return false
+
 Meteor.publish 'rtbfiles', ->
     return Files.find {}
 
@@ -65,6 +76,10 @@ Meteor.publish 'creatives', ->
 ######################################
 
 ## Creatives
+
+createCreative = Meteor._wrapAsync (c, cb) ->
+    Store.methodCall "CreateCreative", c, cb
+
 getCreative = Meteor._wrapAsync (x, cb) ->
     switch typeof x
         when "number"
@@ -73,6 +88,9 @@ getCreative = Meteor._wrapAsync (x, cb) ->
             Store.methodCall "GetCreativeByTag", x, cb
         else
             cb null
+
+getCreativeMacros = Meteor._wrapAsync (nmb, cb) ->
+    Store.methodCall "GetCreativeMacros", nmb, cb
 
 ## Files
 
@@ -129,28 +147,33 @@ Meteor.methods
             return []
 
     'getAdvertiserName': (nmb) ->
-        return Advertiser.findOne({ nmb: nmb })?.name
+        Advertiser.findOne({ nmb: nmb })?.name
 
     # Form support methods
 
-    'newCreative': (c) ->
-        check c, Schema.newCreative
+    'newCreative': (n) ->
+        c = Creatives.findOne { CreativeNmb: n }
+        nmb = 0
 
-        boundFn = Meteor.bindEnvironment (error, result) ->
-            if error
-                console.log err
-                return
-            else
-                _.extend c,
-                    CreativeNmb: result
-                Creatives.insert c, (err, res) ->
-                        console.log err if err
-                    return
-            return
-        , (e) ->
-            throw e
+        if c
+            delete c.CreativeNmb
+            nmb = createCreative c
+            nc = getCreative nmb
+            Creatives._collection.update { CreativeNmb: n }, { $set: nc }
 
-        Store.methodCall 'CreateCreative', c, boundFn
+        return nmb
+
+    'updateCreative': (nmb) ->
+        c = Creatives.findOne { CreativeNmb: nmb }
+        u =
+            CreativeNmb: c.CreativeNmb
+            CreativeName: c.CreativeName
+            TnsAdvertiserNmb: c.TnsAdvertiserNmb
+            TemplateNmb: c.TemplateNmb
+            ExpireDate: c.ExpireDate
+            Tag: c.Tag
+            Note: c.Note
+        Store.methodCall 'UpdateCreative', u
         return
 
     # Retrieve all CreativeInfo objects from Yandex BannerStore for all creatives
@@ -160,11 +183,10 @@ Meteor.methods
         creativeNmbs = _.pluck(Creatives.find({}, { fields: { CreativeNmb: 1 } }).fetch(), 'CreativeNmb')
 
         # For each number retrieve CreativeInfo object from Yandex BannerStore
-        # and upsert it into Creatives collection
+        # and upsert it into Creatives collection using $set (to keep 'TemplateNmb' property)
         _.each creativeNmbs, (n) ->
             c = getCreative n
-            Creatives._collection.upsert { CreativeNmb: c.CreativeNmb }, c
-
+            Creatives._collection.upsert { CreativeNmb: c.CreativeNmb }, { $set: c }
         return
 
     # Retrieve all CreativeInfo objects from Yandex BannerStore by tag
@@ -175,7 +197,7 @@ Meteor.methods
 
         # Upsert each CreativeInfo object into Creatives collection
         _.each cArray, (c) ->
-            Creatives._collection.upsert { CreativeNmb: c.CreativeNmb }, c
+            Creatives._collection.upsert { CreativeNmb: c.CreativeNmb }, { $set : c }
 
         return
 
@@ -205,4 +227,10 @@ Meteor.methods
             Files._collection.upsert { FileNmb: file.FileNmb }, file
 
         return
+
+    'getCreativeMacros': (nmb) ->
+        m = getCreativeMacros nmb
+        console.log m
+        return m
+
 

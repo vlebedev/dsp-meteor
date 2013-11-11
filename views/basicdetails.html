@@ -1,0 +1,81 @@
+<template name="basicDetailsForm">
+
+    {{#autoForm schema=CreativesCollection doc=selectedCreative id="basic"}}
+
+    <fieldset>
+        <legend>Basic details</legend>
+
+        <div class="row">
+
+            <div class="form-group{{#if afFieldIsInvalid 'CreativeName'}} has-error{{/if}} col-md-4">
+                {{afFieldLabel "CreativeName" class="control-label"}}
+                {{afFieldInput "CreativeName"}}
+                {{#if afFieldIsInvalid "CreativeName"}}
+                <span class="help-block">{{afFieldMessage "CreativeName"}}</span>
+                {{/if}}
+            </div>
+
+            <div class="form-group{{#if afFieldIsInvalid 'TnsAdvertiserNmb'}} has-error{{/if}} col-md-3">
+                {{afFieldLabel "TnsAdvertiserNmb" class="control-label"}}
+                {{afFieldInput "TnsAdvertiserNmb" type="hidden" id="advertiser-basic-js"}}
+                <input type=text class="form-control advertiser-basic-typeahead-js" data-provide="typeahead">
+                {{#if afFieldIsInvalid "TnsAdvertiserNmb"}}
+                <span class="help-block">{{afFieldMessage "TnsAdvertiserNmb"}}</span>
+                {{/if}}
+            </div>
+
+            <div class="form-group{{#if afFieldIsInvalid 'TemplateNmb'}} has-error{{/if}} col-md-3">
+                {{afFieldLabel "TemplateNmb" class="control-label"}}
+                {{afFieldInput "TemplateNmb" type="hidden" id="template-basic-js"}}
+                <input type=text class="form-control template-basic-typeahead-js" data-provide="typeahead">
+                {{#if afFieldIsInvalid "TemplateNmb"}}
+                <span class="help-block">{{afFieldMessage "TemplateNmb"}}</span>
+                {{/if}}
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="form-group{{#if afFieldIsInvalid 'ExpireDate'}} has-error{{/if}} col-md-4">
+                {{afFieldLabel "ExpireDate" class="control-label"}}
+                {{afFieldInput "ExpireDate"}}
+                {{#if afFieldIsInvalid "ExpireDate"}}
+                <span class="help-block">{{afFieldMessage "ExpireDate"}}</span>
+                {{/if}}
+            </div>
+
+            <div class="form-group{{#if afFieldIsInvalid 'Tag'}} has-error{{/if}} col-md-3">
+                {{afFieldLabel "Tag" class="control-label"}}
+                {{afFieldInput "Tag"}}
+                {{#if afFieldIsInvalid "Tag"}}
+                <span class="help-block">{{afFieldMessage "Tag"}}</span>
+                {{/if}}
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="form-group{{#if afFieldIsInvalid 'Note'}} has-error{{/if}} col-md-7">
+                {{afFieldLabel "Note" class="control-label"}}
+                {{afFieldInput "Note" rows="3"}}
+                {{#if afFieldIsInvalid "Note"}}
+                <span class="help-block">{{afFieldMessage "Note"}}</span>
+                {{/if}}
+            </div>
+
+        </div>
+
+        <div>
+            {{#if selectedCreative}}
+            <button type="submit" class="btn btn-primary update"><span class="glyphicon glyphicon-save">&nbsp;Update</span></button>
+            {{else}}
+            <button type="submit" class="btn btn-primary insert"><span class="glyphicon glyphicon-save">&nbsp;Create</span></button>
+            {{/if}}
+            <button type="reset"  class="btn btn-default">Clear</button>
+        </div>
+
+    </fieldset>
+    {{/autoForm}}
+</template>
