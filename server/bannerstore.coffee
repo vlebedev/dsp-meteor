@@ -18,17 +18,15 @@ class @BannerStore
                 [{'name': @login, 'password': @password}],
                 (error, result) ->
                     if !!error
-                        if !!cb
-                            cb error, null
+                        cb && cb error, null
                         return
                     else
                         @logon = result
                         @logonObtainedAt = moment()
-                        if !!cb
-                            cb null, @logon
+                        cb && cb null, @logon
                         return
         else
-            cb null, @logon
+            cb && cb null, @logon
         return
 
     methodCall: (method, data, cb) ->
@@ -37,4 +35,20 @@ class @BannerStore
                 @createLogon callback
             , (logon, callback) =>
                 @client.methodCall "BannerStore.#{method}", [logon, data], callback
-        ], cb
+        ], (err, res) ->
+            if err
+                console.log 'Error during XML-RPC method invocation:', err
+                cb && cb err, null
+            else
+                cb && cb null, res
+
+    dictMethodCall: (method, cb) ->
+        async.waterfall [
+            (callback) =>
+                @client.methodCall "BannerStore.#{method}", null, callback
+        ], (err, res) ->
+            if err
+                console.log 'Error during XML-RPC method invocation:', err
+                cb && cb err, null
+            else
+                cb && cb null, res

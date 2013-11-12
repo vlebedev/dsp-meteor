@@ -2,7 +2,7 @@
 fs = require 'fs'
 
 task 'run', 'run project in local mode', (options) =>
-    process.env.MONGO_URL = "mongodb://localhost:27017/creakl"
+    process.env.MONGO_URL = "mongodb://localhost:27017/dsp-meteor"
     spawn 'meteor', [],
         stdio: 'inherit'
         env: process.env

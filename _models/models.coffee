@@ -1,5 +1,6 @@
-@RTBTemplate = new Meteor.Collection 'template'
-@Macros = new Meteor.Collection 'macros'
+@BS_Templates    = new Meteor.Collection 'bs.templates'
+@BS_Macros       = new Meteor.Collection 'bs.macros'
+
 @Files = new Meteor.Collection 'files'
 @FilesFS = new CollectionFS 'files'
 

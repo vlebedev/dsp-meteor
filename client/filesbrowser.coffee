@@ -1,3 +1,5 @@
+class @FilesController extends AppController
+
 Template.filesBrowser.files = ->
     Files.find {}, { sort: { FileNmb: -1 } }
 

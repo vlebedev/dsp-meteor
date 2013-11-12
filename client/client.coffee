@@ -18,11 +18,13 @@ Router.map ->
 
     @route 'creative/edit/:nmb',
         template: 'editCreative'
+        controller: 'EditController'
         before: ->
             Session.set 'edit_creative', parseInt(@params.nmb)
 
     @route 'creative/view/:nmb',
         template: 'viewCreative'
+        controller: 'ViewController'
         before: ->
             Session.set 'view_creative', parseInt(@params.nmb)
 
@@ -30,13 +32,14 @@ class @AppController extends RouteController
 
   before: ->
     if _.isNull Meteor.user()
-      Router.go Router.path 'home'
+      @redirect 'home'
 
 Handlebars.registerHelper "isSelected", (name) ->
     if name == Router.current().template then 'active' else ''
 
 Deps.autorun ->
-    Meteor.subscribe 'template'
+    Meteor.subscribe 'bs.templates'
+    Meteor.subscribe 'bs.macros'
     Meteor.subscribe 'creatives'
     Meteor.subscribe 'rtbfiles'
 
@@ -50,5 +53,8 @@ Meteor.startup ->
     Session.setDefault 'view_creative', null
     Session.setDefault 'edit_creative', null
     Session.setDefault 'show_success', false
+
+    Accounts.ui.config
+        passwordSignupFields: 'EMAIL_ONLY'
 
 

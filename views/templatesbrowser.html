@@ -15,25 +15,25 @@
                             <legend>Template Name</legend>
                             <ul class="nav nav-pills nav-stacked">
                                 {{#each templates}}
-                                    <li class="{{isSelected}}"><a href="#" class="link-template-chooser-js">{{name}} ({{nmb}})</a></li>
+                                    <li class="{{isSelected}}"><a href="#" class="link-template-chooser-js">{{Name}} ({{Nmb}})</a></li>
                                 {{/each}}
                             </ul>
                          </div>
 
                         <div class="col-md-7">
                             <legend>Template Data</legend>
-                            {{#if selected.isenabled}}
+                            {{#if selected.IsEnabled}}
                                 Enabled,&nbsp;
                             {{else}}
                                 Disabled,&nbsp;
                             {{/if}}
-                            {{#if selected.isapproved}}
+                            {{#if selected.IsApproved}}
                                 Approved
                             {{else}}
                                 Not approved
                             {{/if}}
                             <br>
-                            <pre>{{selected.data}}</pre></div>
+                            <pre>{{selected.Data}}</pre></div>
                         </div>
                     </div>
                 </div>

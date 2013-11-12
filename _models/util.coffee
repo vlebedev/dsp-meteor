@@ -1,8 +1,8 @@
 @GetAdvertiserName = (nmb) ->
-    a = Advertisers.findOne { nmb: nmb }
+    a = Advertisers.findOne { Nmb: nmb }
     if !!a
-        return a.name
+        return a.Name
     else
         Meteor.call 'getAdvertiserName', nmb, (error, result) =>
-            Advertisers.insert { nmb: nmb, name: result }
+            Advertisers.insert { Nmb: nmb, Name: result }
     return null

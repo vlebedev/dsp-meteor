@@ -1,3 +1,5 @@
+class @EditController extends AppController
+
 Template.editCreative.currentCreative = ->
     Session.get 'edit_creative'
 

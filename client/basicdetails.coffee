@@ -13,17 +13,15 @@ Creatives.callbacks
                 Session.set 'show_success', true
 
     insert: (error, result) ->
-        n = Creatives.findOne(result).CreativeNmb
-        console.log n
         if error
             console.log "Creatives insert error: #{error}"
         else
-            Meteor.call 'newCreative', n, (error, result) ->
-                console.log result
+            Meteor.call 'newCreative', result, (err, res) ->
+                console.log res
                 Session.set 'show_success', true
                 setTimeout(
                     ->
-                        Router.go "/creative/edit/#{result}"
+                        Router.go "/creative/edit/#{res}"
                 , 100)
 
 Creatives.beforeUpdate = (docId, doc) ->
@@ -32,10 +30,8 @@ Creatives.beforeUpdate = (docId, doc) ->
     return doc
 
 Creatives.beforeInsert = (doc) ->
-    console.log doc
     doc.TnsAdvertiserNmb = parseInt(doc.TnsAdvertiserNmb)
     doc.TemplateNmb = parseInt(doc.TemplateNmb)
-    doc.CreativeNmb = 9999999
     return doc
 
 Template.basicDetailsForm.rendered = ->
@@ -50,7 +46,7 @@ Template.basicDetailsForm.rendered = ->
 
                 source: (query, process) ->
                     safe = @query.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1")
-                    Meteor.call 'dictSearch', d, safe, (err, res) ->
+                    Meteor.call 'dictSearch', "#{d}s", safe, (err, res) ->
                         process res
 
                 matcher: (item) ->
@@ -79,12 +75,12 @@ Template.basicDetailsForm.rendered = ->
                         else
                             setTimeout(
                                 ->
-                                    n = Advertisers.findOne({ nmb: x }).name
+                                    n = Advertisers.findOne({ Nmb: x }).Name
                                     $(".#{d}-basic-typeahead-js").val("#{n} (#{x})")
                             , 1000
                             )
                     when 'template'
-                        n = RTBTemplate.findOne({ nmb: x }).name
+                        n = BS_Templates.findOne({ Nmb: x }).Name
                         $(".#{d}-basic-typeahead-js").val("#{n} (#{x})")
 
 Template.basicDetailsForm.events

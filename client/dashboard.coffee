@@ -1,0 +1,1 @@
+class @DashboardController extends AppController

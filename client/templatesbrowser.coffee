@@ -1,18 +1,20 @@
+class @TemplatesController extends AppController
+
 Template.templatesBrowser.preserve ['.template-picker-js']
 
 Template.templatesBrowser.templates = ->
-    RTBTemplate.find {}
+    BS_Templates.find {}
 
 Template.templatesBrowser.count = ->
-    RTBTemplate.find({}).count()
+    BS_Templates.find({}).count()
 
 Template.templatesBrowser.isSelected = ->
-    return if @nmb == Session.get 'template_nmb' then 'active' else ''
+    return if @Nmb == Session.get 'template_nmb' then 'active' else ''
 
 Template.templatesBrowser.selected = ->
     nmb = Session.get 'template_nmb'
-    return RTBTemplate.findOne({ nmb: nmb })
+    return BS_Templates.findOne({ Nmb: nmb })
 
 Template.templatesBrowser.events =
     'click .link-template-chooser-js': (e) ->
-        Session.set 'template_nmb', @nmb
+        Session.set 'template_nmb', @Nmb

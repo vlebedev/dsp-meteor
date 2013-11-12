@@ -1,3 +1,5 @@
+class @CreativesController extends AppController
+
 Template.creativesBrowser.creatives = ->
     Creatives.find {}, { sort: { CreativeNmb: -1 } }
 
@@ -44,5 +46,5 @@ Template.creative.helpers
         return "#{n} (#{@TnsAdvertiserNmb})"
 
     Template: ->
-        n = RTBTemplate.findOne({ nmb: @TemplateNmb })?.name
+        n = BS_Templates.findOne({ Nmb: @TemplateNmb })?.Name
         return "#{n} (#{@TemplateNmb})"

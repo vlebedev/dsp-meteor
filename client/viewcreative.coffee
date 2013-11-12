@@ -1,8 +1,10 @@
-Template.viewCreative.creative = ->
-    Creatives.findOne { CreativeNmb: Session.get 'view_creative' }
+class @ViewController extends AppController
 
 htmlEscape = (str) ->
     return String(str).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+
+Template.viewCreative.creative = ->
+    Creatives.findOne { CreativeNmb: Session.get 'view_creative' }
 
 Template.viewCreative.TemplateData = ->
     @TemplateData
@@ -17,7 +19,7 @@ Template.viewCreative.helpers
             when 4 then 'Accepted (4)'
             when 5 then 'Delayed (5)'
             when 6 then 'Confirmation needed (6)'
-            else "Unknown (#{@Moderation?.StatusNmb})"
+            else "Unknown (#{nmb})"
 
     FmtDate: (d) ->
         if !d
@@ -26,13 +28,19 @@ Template.viewCreative.helpers
             return moment(d).format("YYYY-MM-DD HH:mm:ss")
 
     Advertiser: ->
-        a = Advertisers.findOne { nmb: @TnsAdvertiserNmb }
+        a = Advertisers.findOne { Nmb: @TnsAdvertiserNmb }
         if !!a
-            return a.name
+            return a.Name
         else
             Meteor.call 'getAdvertiserName', @TnsAdvertiserNmb, (error, result) =>
-                Advertisers.insert { nmb: @TnsAdvertiserNmb, name: result }
+                Advertisers.insert { Nmb: @TnsAdvertiserNmb, Name: result }
 
     Template: ->
-        n = RTBTemplate.findOne({ nmb: @TemplateNmb })?.name
+        n = BS_Templates.findOne({ Nmb: @TemplateNmb })?.Name
         return "#{n} (#{@TemplateNmb})"
+
+Template.viewCreative.events
+
+    'click .button-edit-creative-js': (e) ->
+        nmb = Session.get 'view_creative'
+        Router.go "/creative/edit/#{nmb}"
