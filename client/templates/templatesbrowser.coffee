@@ -1,7 +1,5 @@
 class @TemplatesController extends AppController
 
-Template.templatesBrowser.preserve ['.template-picker-js']
-
 Template.templatesBrowser.templates = ->
     BS_Templates.find {}
 

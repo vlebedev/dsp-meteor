@@ -4,36 +4,6 @@ Template.basicDetailsForm.CreativesCollection = ->
 Template.basicDetailsForm.selectedCreative = ->
     return Creatives.findOne { CreativeNmb: Session.get 'edit_creative' }
 
-Creatives.callbacks
-    update: (error, result) ->
-        if error
-            console.log "Creatives insert error: #{error}"
-        else
-            Meteor.call 'updateCreative', result.data._doc.CreativeNmb, (error, result) ->
-                Session.set 'show_success', true
-
-    insert: (error, result) ->
-        if error
-            console.log "Creatives insert error: #{error}"
-        else
-            Meteor.call 'newCreative', result, (err, res) ->
-                console.log res
-                Session.set 'show_success', true
-                setTimeout(
-                    ->
-                        Router.go "/creative/edit/#{res}"
-                , 100)
-
-Creatives.beforeUpdate = (docId, doc) ->
-    doc['$set'].TnsAdvertiserNmb = parseInt(doc['$set'].TnsAdvertiserNmb)
-    doc['$set'].TemplateNmb = parseInt(doc['$set'].TemplateNmb)
-    return doc
-
-Creatives.beforeInsert = (doc) ->
-    doc.TnsAdvertiserNmb = parseInt(doc.TnsAdvertiserNmb)
-    doc.TemplateNmb = parseInt(doc.TemplateNmb)
-    return doc
-
 Template.basicDetailsForm.rendered = ->
 
     for d in ['advertiser', 'template']
@@ -52,10 +22,10 @@ Template.basicDetailsForm.rendered = ->
                 matcher: (item) ->
                     safe = @query.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1")
                     r = new RegExp ".*#{safe}.*", 'i'
-                    return r.test(safe) || item.indexOf('...и еще ') != -1
+                    return r.test(safe) || item.indexOf('...and') != -1
 
                 updater: (item) ->
-                    if item.indexOf('...и еще ') == -1
+                    if item.indexOf('...and') == -1
                         r = new RegExp "^.*\\((\\d+)\\)$"
                         if r.test(item)
                             nmb = parseInt(r.exec(item)[1])

@@ -6,6 +6,9 @@ Template.editCreative.currentCreative = ->
 Template.editCreative.showSuccess = ->
     Session.get 'show_success'
 
+Template.editCreative.disabled_pill = ->
+    if Session.get('edit_creative') == 0 then 'disabled' else ''
+
 Template.editCreative.events
 
     'click .alert-close-success-js': (e) ->

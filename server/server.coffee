@@ -88,6 +88,9 @@ Meteor.publish 'files', ->
 Meteor.publish 'bs.templates', ->
     return BS_Templates.find {}
 
+Meteor.publish 'bs.macros', ->
+    return BS_Macros.find {}
+
 Meteor.publish 'creatives', ->
     return Creatives.find {}
 
@@ -163,8 +166,6 @@ Meteor.methods
     'dictSearch': (dict, query) ->
         num = new RegExp "^\\d+$"
 
-        console.log dict, query
-
         return [] unless !!Dictionaries[dict]
 
         if num.test(query)
@@ -180,7 +181,7 @@ Meteor.methods
                 if res
                     res = _.map(res, (x) -> "#{x.Name} (#{x.Nmb})")
                     if total_found > 10
-                        res.push "<i>...и еще <strong>#{total_found-10}</strong> результатов</i>", ""
+                        res.push "<i>...and <strong>#{total_found-10}</strong> more results</i>", ""
                     return res
             return []
 
@@ -213,6 +214,186 @@ Meteor.methods
         Store.methodCall 'UpdateCreative', u
         return
 
+    'updateGeoLocsList': (cnmb, nmb, excl) ->
+        creative = Creatives.findOne({ CreativeNmb: cnmb })
+
+        throw "Creative #{nmb} not exists" unless creative
+
+        if nmb > 0
+
+            name = BS_GeoLocs.findOne({ Nmb: nmb }).Name
+            geo =
+                Nmb: nmb
+                Name: name
+
+            if creative.GeoLocs
+
+                excl = !!creative.GeoLocsExclude
+                Creatives._collection.update creative._id, { $addToSet: { GeoLocs: geo } }
+
+            else
+
+                excl = false
+                Creatives._collection.update creative._id, { $push: { GeoLocs: geo }, $set: { GeoLocsExclude: false } }
+
+        else if nmb < 0
+
+            excl = !!creative.GeoLocsExclude
+            name = BS_GeoLocs.findOne({ Nmb: -nmb }).Name
+            geo =
+                Nmb: -nmb
+                Name: name
+            Creatives._collection.update creative._id, { $pull: { GeoLocs: geo } }
+
+        else
+
+            Creatives._collection.update creative._id, { $set: { GeoLocsExclude: excl } }
+
+        list = Creatives.findOne(creative._id).GeoLocs
+
+        list = if list then _.pluck list, 'Nmb' else []
+
+        geoLocs =
+            CreativeNmb: cnmb
+            GeoNmb: list
+            Exclude: excl
+
+        console.log geoLocs
+
+        Store.methodCall 'UpdateCreativeGeo', geoLocs, (err, res) ->
+            err && console.log err
+
+    'updateSitesList': (cnmb, nmb, excl) ->
+        creative = Creatives.findOne({ CreativeNmb: cnmb })
+
+        throw "Creative #{nmb} not exists" unless creative
+
+        if nmb > 0
+
+            name = BS_Sites.findOne({ Nmb: nmb }).Name
+            site =
+                Nmb: nmb
+                Name: name
+
+            if creative.Sites
+
+                excl = !!creative.SitesExclude
+                Creatives._collection.update creative._id, { $addToSet: { Sites: site } }
+
+            else
+
+                excl = false
+                Creatives._collection.update creative._id, { $push: { Sites: site }, $set: { SitesExclude: false } }
+
+        else if nmb < 0
+
+            excl = !!creative.SitesExclude
+            name = BS_Sites.findOne({ Nmb: -nmb }).Name
+            site =
+                Nmb: -nmb
+                Name: name
+            Creatives._collection.update creative._id, { $pull: { Sites: site } }
+
+        else
+
+            Creatives._collection.update creative._id, { $set: { SitesExclude: excl } }
+
+        list = Creatives.findOne(creative._id).Sites
+
+        list = if list then _.pluck list, 'Nmb' else []
+
+        sites =
+            CreativeNmb: cnmb
+            SiteNmb: list
+            Exclude: excl
+
+        console.log sites
+
+        Store.methodCall 'UpdateCreativeSite', sites, (err, res) ->
+            err && console.log err
+
+    'updateArticlesList': (cnmb, nmb) ->
+        creative = Creatives.findOne({ CreativeNmb: cnmb })
+
+        throw "Creative #{nmb} not exists" unless creative
+
+        if nmb > 0
+
+            name = BS_Articles.findOne({ Nmb: nmb }).Name
+            article =
+                Nmb: nmb
+                Name: name
+
+            if creative.Articles
+
+                Creatives._collection.update creative._id, { $addToSet: { Articles: article } }
+
+            else
+
+                Creatives._collection.update creative._id, { $push: { Articles: article } }
+
+        else if nmb < 0
+
+            name = BS_Articles.findOne({ Nmb: -nmb }).Name
+            article =
+                Nmb: -nmb
+                Name: name
+            Creatives._collection.update creative._id, { $pull: { Articles: article } }
+
+        list = Creatives.findOne(creative._id).Articles
+
+        list = if list then _.pluck list, 'Nmb' else []
+
+        articles =
+            CreativeNmb: cnmb
+            Article: list
+
+        console.log articles
+
+        Store.methodCall 'UpdateCreativeTnsArticle', articles, (err, res) ->
+            err && console.log err
+
+    'updateBrandsList': (cnmb, nmb) ->
+        creative = Creatives.findOne({ CreativeNmb: cnmb })
+
+        throw "Creative #{nmb} not exists" unless creative
+
+        if nmb > 0
+
+            name = BS_Brands.findOne({ Nmb: nmb }).Name
+            brand =
+                Nmb: nmb
+                Name: name
+
+            if creative.Brands
+
+                Creatives._collection.update creative._id, { $addToSet: { Brands: brand } }
+
+            else
+
+                Creatives._collection.update creative._id, { $push: { Brands: brand } }
+
+        else if nmb < 0
+
+            name = BS_Brands.findOne({ Nmb: -nmb }).Name
+            brand =
+                Nmb: -nmb
+                Name: name
+            Creatives._collection.update creative._id, { $pull: { Brands: brand } }
+
+        list = Creatives.findOne(creative._id).Brands
+
+        list = if list then _.pluck list, 'Nmb' else []
+
+        brands =
+            CreativeNmb: cnmb
+            Brand: list
+
+        console.log brands
+
+        Store.methodCall 'UpdateCreativeTnsBrand', brands, (err, res) ->
+            err && console.log err
+
     # Retrieve all CreativeInfo objects from Yandex BannerStore for all creatives
     # in Creatives collection and upsert them into Creatives collection
     'refreshCreatives': ->
@@ -242,7 +423,7 @@ Meteor.methods
     # retrieve FileInfo object and store it into Files collection
     'uploadToBSAndRefreshFile': (fileId) ->
         fileNmb = uploadFileToBS fileId
-        FilesFS.update fileId, { $set: { "metadata.BannerStoreNmb": fileNmb } }
+        FilesFS.update fileId, { $set: { "metadata.FileNmb": fileNmb } }
         file = getFileFromBS fileNmb
         delete file.Data # do not store base64 file Data in mongo
         Files._collection.upsert { FileNmb: file.FileNmb }, file

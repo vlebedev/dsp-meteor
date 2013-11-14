@@ -1,0 +1,43 @@
+<template name="geolocs">
+    <legend>Geo Locations</legend>
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-globe"></span></span>
+                <input type=text class="form-control targeting-geolocs-typeahead-js" data-provide="typeahead" placeholder="Search Location">
+            </div>
+        </div>
+        <div class="col-xs-1">
+            <button class="btn targeting-geolocs-add-js"><span class="glyphicon glyphicon-arrow-right"></span></button>
+        </div>
+        <div class="col-xs-4">
+
+            <ul class="list-group">
+                {{#if geolocs}}
+                    {{#each geolocs}}
+                        <li class="list-group-item">
+                            {{Name}} ({{Nmb}})
+                            <span class="badge"><span class="glyphicon glyphicon-remove targeting-geolocs-remove-js"></span></span>
+                        </li>
+                    {{/each}}
+                {{else}}
+                    <li class="list-group-item">
+                        <i>The list is <strong>empty</strong></i>
+                    </li>
+                {{/if}}
+            </ul>
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="targeting-geolocs-exclude-js" {{{geolocs_exclude_checked}}}> Use it as exclude list
+                </label>
+            </div>
+
+            <button class="btn btn-primary targeting-geolocs-update-js">
+                <span class="glyphicon glyphicon-save"></span>
+                &nbsp;Update
+            </button>
+
+        </div>
+    </div>
+</template>

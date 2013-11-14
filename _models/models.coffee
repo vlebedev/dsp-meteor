@@ -54,6 +54,24 @@
         Moderation:
             type: Object
             optional: true
+        GeoLocs:
+            type: [Object]
+            optional: true
+        'GeoLocs.Nmb':
+            type: Number
+            optional: true
+        'GeoLocs.Name':
+            type: String
+            optional: true
+        Sites:
+            type: [Object]
+            optional: true
+        'Sites.Nmb':
+            type: Number
+            optional: true
+        'Sites.Name':
+            type: String
+            optional: true
         'Moderation.StatusNmb':
             type: Number
             label: 'Moderation status'
@@ -85,3 +103,34 @@
             type: String
             label: 'Message from moderator'
             optional: true
+
+if Meteor.isClient
+
+    @Creatives.callbacks
+        update: (error, result) ->
+            if error
+                console.log "Creatives insert error: #{error}"
+            else
+                Meteor.call 'updateCreative', result.data._doc.CreativeNmb, (error, result) ->
+                    Session.set 'show_success', true
+
+        insert: (error, result) ->
+            if error
+                console.log "Creatives insert error: #{error}"
+            else
+                Meteor.call 'newCreative', result, (err, res) ->
+                    Session.set 'show_success', true
+                    setTimeout(
+                        ->
+                            Router.go "/creative/edit/#{res}"
+                    , 100)
+
+    @Creatives.beforeUpdate = (docId, doc) ->
+        doc['$set'].TnsAdvertiserNmb = parseInt(doc['$set'].TnsAdvertiserNmb)
+        doc['$set'].TemplateNmb = parseInt(doc['$set'].TemplateNmb)
+        return doc
+
+    @Creatives.beforeInsert = (doc) ->
+        doc.TnsAdvertiserNmb = parseInt(doc.TnsAdvertiserNmb)
+        doc.TemplateNmb = parseInt(doc.TemplateNmb)
+        return doc
