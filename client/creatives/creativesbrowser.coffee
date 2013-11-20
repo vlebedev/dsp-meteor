@@ -28,6 +28,9 @@ Template.creativesBrowser.events
 
 Template.creative.helpers
 
+    isStatus: (nmb) ->
+        return @Moderation.StatusNmb == Number(nmb)
+
     Status: ->
         switch @Moderation?.StatusNmb
             when undefined, 1 then 'Draft (1)'

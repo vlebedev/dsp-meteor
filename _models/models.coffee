@@ -51,9 +51,6 @@
             type: String
             label: 'Auction properties'
             optional: true
-        Moderation:
-            type: Object
-            optional: true
         GeoLocs:
             type: [Object]
             optional: true
@@ -71,6 +68,30 @@
             optional: true
         'Sites.Name':
             type: String
+            optional: true
+        Macros:
+            type: [Object]
+            optional: true
+        'Macros.Nmb':
+            type: Number
+            optional: true
+        'Macros.Name':
+            type: String
+            optional: true
+        'Macros.Caption':
+            type: String
+            optional: true
+        'Macros.MacrosTypeNmb':
+            type: Number
+            optional: true
+        'Macros.IsEnabled':
+            type: Boolean
+            optional: true
+        'Macros.Value':
+            type: String
+            optional: true
+        Moderation:
+            type: Object
             optional: true
         'Moderation.StatusNmb':
             type: Number

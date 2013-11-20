@@ -33,14 +33,13 @@ Template.brands.events
         if r.test(item)
             [_, nmb] = r.exec(item)
             nmb = parseInt(nmb)
-            Meteor.call 'updateBrandsList', cnmb, nmb
+            Meteor.call 'updateBrandsList', cnmb, nmb, false
 
     'click .targeting-brands-remove-js': (e) ->
-        nmb = -@Nmb
         cnmb = Session.get('edit_creative')
-        Meteor.call 'updateBrandsList', cnmb, nmb
+        Meteor.call 'updateBrandsList', cnmb, @Nmb, true
 
     'click .targeting-brands-update-js': (e) ->
         cnmb = Session.get('edit_creative')
-        Meteor.call 'updateBrandsList', cnmb, 0, (err, res) ->
+        Meteor.call 'updateBrandsList', cnmb, 0, false, (err, res) ->
             CoffeeAlerts.success "Creative's TNS Brands have been succefully updated!"

@@ -1,27 +1,28 @@
 <template name="templatesBrowser">
 
 <div class="container">
-
     <div class="row" style="margin-top: 10px;">
         <div class="cols-md-12">
             <div class="panel panel-danger">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Template Browser</h3>
+                    <h3 class="panel-title">Template</h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">
-
                         <div class="col-md-4">
                             <legend>Template Name</legend>
-                            <ul class="nav nav-pills nav-stacked">
-                                {{#each templates}}
-                                    <li class="{{isSelected}}"><a href="#" class="link-template-chooser-js">{{Name}} ({{Nmb}})</a></li>
-                                {{/each}}
-                            </ul>
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle template-name-js" data-toggle="dropdown">{{{selectedName}}} <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    {{#each templates}}
+                                        <li class="{{isSelected}}"><a href="#" class="link-template-chooser-js">{{Name}} ({{Nmb}})</a></li>
+                                    {{/each}}
+                                </ul>
+                            </div>
                          </div>
-
-                        <div class="col-md-7">
+                        <div class="col-md-8">
                             <legend>Template Data</legend>
+                            Template is&nbsp;
                             {{#if selected.IsEnabled}}
                                 Enabled,&nbsp;
                             {{else}}

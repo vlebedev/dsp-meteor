@@ -1,6 +1,24 @@
 <template name="editCreative">
 
     <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <h4>
+                    {{creativeName}}
+                    <div class="pull-right">
+                        <button class="btn btn-success button-view-creative-js"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;View</button>
+                        {{#if isStatus 1}}
+                            <button class="btn btn-danger button-submit-creative-js"><span class="glyphicon glyphicon-upload"></span>&nbsp;Submit for Approval</button>
+                        {{/if}}
+                        {{#if isStatus 3}}
+                            <button class="btn btn-danger button-reqedit-creative-js"><span class="glyphicon glyphicon-upload"></span>&nbsp;Request Edit</button>
+                        {{/if}}
+                    </div>
+                </h4>
+            </div>
+        </div>
+
         <div class="row" style="margin-top: 10px;">
             <div class="col-md-12">
 
@@ -34,6 +52,9 @@
                             </div>
 
                             <div class="col-md-10">
+                                <div>
+                                    {{> coffeeAlerts}}
+                                </div>
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="basic">{{> basicDetailsForm}}</div>
                                     <div class="tab-pane" id="macros">{{> macros}}</div>

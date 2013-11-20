@@ -13,6 +13,13 @@ Template.templatesBrowser.selected = ->
     nmb = Session.get 'template_nmb'
     return BS_Templates.findOne({ Nmb: nmb })
 
+Template.templatesBrowser.selectedName = ->
+    nmb = Session.get 'template_nmb'
+    t = BS_Templates.findOne({ Nmb: nmb })
+    return "#{t.Name} (#{t.Nmb})"
+
 Template.templatesBrowser.events =
     'click .link-template-chooser-js': (e) ->
         Session.set 'template_nmb', @Nmb
+        console.log @Name
+        $('.template-name-js').html()

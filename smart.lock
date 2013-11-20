@@ -10,7 +10,8 @@
       "async": {},
       "collectionFS": {},
       "iron-router": {},
-      "accounts-entry": {}
+      "accounts-entry": {},
+      "select2": {}
     },
     "packages": {
       "bootstrap-3": {
@@ -55,8 +56,13 @@
       },
       "accounts-entry": {
         "git": "https://github.com/BeDifferential/accounts-entry.git",
-        "tag": "v0.4.2",
-        "commit": "d846e901d7478240050471bcd5afff7de12b3683"
+        "tag": "v0.4.4",
+        "commit": "56cee1ff5afe2ce5be7b749cd74fc939fc9ce781"
+      },
+      "select2": {
+        "git": "https://github.com/nate-strauser/meteor-select2.git",
+        "tag": "v3.4.3",
+        "commit": "fbe1f33800c90ecdfdcec529970382f8781e3988"
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",

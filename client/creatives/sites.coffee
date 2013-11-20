@@ -25,7 +25,6 @@ Template.sites.rendered = ->
         updater: (item) ->
             if item.indexOf('...and') == -1 then item else ''
 
-
 Template.sites.events
 
     'click .targeting-sites-add-js': (e) ->
@@ -36,15 +35,14 @@ Template.sites.events
         if r.test(item)
             [_, nmb] = r.exec(item)
             nmb = parseInt(nmb)
-            Meteor.call 'updateSitesList', cnmb, nmb, null
+            Meteor.call 'updateSitesList', cnmb, nmb, false, null
 
     'click .targeting-sites-remove-js': (e) ->
-        nmb = -@Nmb
         cnmb = Session.get('edit_creative')
-        Meteor.call 'updateSitesList', cnmb, nmb, null
+        Meteor.call 'updateSitesList', cnmb, @Nmb, true, null
 
     'click .targeting-sites-update-js': (e) ->
         excl = $('.targeting-sites-exclude-js').prop('checked')
         cnmb = Session.get('edit_creative')
-        Meteor.call 'updateSitesList', cnmb, 0, excl, (err, res) ->
+        Meteor.call 'updateSitesList', cnmb, 0, false, excl, (err, res) ->
             CoffeeAlerts.success "Creative's Sites have been succefully updated!"

@@ -8,6 +8,7 @@
     "async": {},
     "collectionFS": {},
     "iron-router": {},
-    "accounts-entry": {}
+    "accounts-entry": {},
+    "select2": {}
   }
 }

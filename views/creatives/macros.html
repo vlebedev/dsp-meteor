@@ -1,46 +1,57 @@
 <template name="macros">
     <div class="container">
-
         <div class="row">
-
-            <div class="col-md-4">
-                <legend>Macro Name</legend>
-                <div class="input-group">
-                    <div class="input-group-btn">
-                        <button type="button" class="btn btn-default dropdown-toggle macros-button-js" data-toggle="dropdown">Choose Macro <span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                            {{#each macros}}
-                                <li class="{{isSelected}}"><a href="#" class="macros-choose-js">{{Name}} ({{Nmb}})</a></li>
-                            {{/each}}
-                        </ul>
-                    </div><!-- /btn-group -->
-                    <input type="text" class="form-control macros-name-js" placeholder="Enter value">
-                </div><!-- /input-group -->
+            <div class="col-lg-9">
+                {{> coffeeAlerts}}
             </div>
-
-            <div class="col-md-8">
-                <div id="sticky">
-                    {{#with selected}}
-                        <legend>Macro Data</legend>
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <strong>Caption: </strong>{{Caption}}
-                            </li>
-                            <li class="list-group-item">
-                                <strong>Type: </strong>{{Type}}
-                            </li>
-                            <li class="list-group-item">
-                                <strong>Is Enabled: </strong>
-                                {{#if selected.IsEnabled}}
-                                    <strong>Yes</strong>
-                                {{else}}
-                                    <strong>No</strong>
-                                {{/if}}
-                            </li>
-                    {{/with}}
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <form role="form">
+                    <legend>Macros</legend>
+                    {{#each macros}}
+                        {{> macroinput}}
+                    {{/each}}
+                </form>
+                <button class="btn btn-primary macros-update-js">
+                    <span class="glyphicon glyphicon-save"></span>
+                    &nbsp;Update
+                </button>
+            </div>
+            <div class="col-lg-5">
+                <legend>Template</legend>
+                <div class="well">
+                    <pre>{{template_data}}</pre>
                 </div>
             </div>
-
         </div>
+    </div>
+</template>
+
+<template name="macroinput">
+    <label>{{Name}}</label>
+    <div class="form-group">
+        {{#if isType 2}}
+            <select data-placeholder="{{placeholder}}" style="width: 350px;"
+                class="select2" id="macros-{{Nmb}}">
+                <option></option>
+                {{#each files}}
+                    <option value={{FileNmb}}>{{FileName}}</option>
+                {{/each}}
+            </select>
+        {{else}} {{#if isType 5}}
+            <select data-placeholder="{{placeholder}}" style="width: 350px;"
+                    multiple class="select2" id="macros-{{Nmb}}">
+                <option></option>
+                {{#each files}}
+                    <option value={{FileNmb}}>{{FileName}}</option>
+                {{/each}}
+            </select>
+        {{else}}
+            <div class="form-group">
+                <input  type="text" class="form-control" value="{{Value}}"
+                        placeholder="{{placeholder}}" id="macros-{{Nmb}}">
+            </div>
+        {{/if}} {{/if}}
     </div>
 </template>

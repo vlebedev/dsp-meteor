@@ -57,3 +57,7 @@ Template.file.helpers
 
     CdnUrl: ->
         @CdnUrl || "--not approved yet--"
+
+    File: ->
+        FilesFS.findOne({ "metadata.FileNmb": @FileNmb })
+

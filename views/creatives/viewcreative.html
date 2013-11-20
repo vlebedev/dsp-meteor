@@ -8,11 +8,24 @@
                 <h4>
                     {{CreativeName}}
                     <div class="pull-right">
-                        <button class="btn btn-success button-edit-creative-js"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</button>
-                        <button class="btn btn-danger button-submit-creative-js"><span class="glyphicon glyphicon-upload"></span>&nbsp;Submit for Approval</button>
-                        <button class="btn btn-primary button-refresh-creatives-js"><span class="glyphicon glyphicon-refresh"></span>&nbsp;Refresh</button>
+                        {{#if isStatus 1}}
+                            <button class="btn btn-success button-edit-creative-js"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</button>
+                        {{/if}}
+                        <button class="btn btn-primary button-refresh-creative-js"><span class="glyphicon glyphicon-refresh"></span>&nbsp;Refresh</button>
+                        {{#if isStatus 1}}
+                            <button class="btn btn-danger button-submit-creative-js"><span class="glyphicon glyphicon-upload"></span>&nbsp;Submit for Approval</button>
+                        {{/if}}
+                        {{#if isStatus 3}}
+                            <button class="btn btn-danger button-reqedit-creative-js"><span class="glyphicon glyphicon-upload"></span>&nbsp;Request Edit</button>
+                        {{/if}}
                     </div>
                 </h4>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-12">
+                {{> coffeeAlerts}}
             </div>
         </div>
 
@@ -20,7 +33,7 @@
             <div class="col-md-6">
                 <div class="panel panel-success">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Creative</h3>
+                        <h3 class="panel-title">Basic</h3>
                     </div>
                     <div class="panel-body">
                         <legend>Properties</legend>
@@ -65,7 +78,7 @@
                                 {{#with Moderation}}
                                 <tr><td><strong>StatusNmb</strong></td><td>{{FmtStatus StatusNmb}}</td></tr>
                                 <tr><td><strong>ModeratedDate</strong></td><td>{{FmtDate ModeratedDate}}</td></tr>
-                                <tr><td><strong>Message</strong></td><td>{{Message}}</td></tr>
+                                <tr><td><strong>Message</strong></td><td>{{{Message}}}</td></tr>
                                 <tr><td><strong>RequestDate</strong></td><td>{{RequestedDate}}</td></tr>
                                 {{/with}}
                             <tbody>
@@ -83,7 +96,7 @@
                                 {{#each Moderation.Log}}
                                     <tr><td><strong>StatusNmb</strong></td><td>{{FmtStatus StatusNmb}}</td></tr>
                                     <tr><td><strong>Date</strong></td><td>{{FmtDate Date}}</td></tr>
-                                    <tr><td><strong>Message</strong></td><td>{{Message}}</td></tr>
+                                    <tr><td><strong>Message</strong></td><td>{{{Message}}}</td></tr>
                                 {{/each}}
                             <tbody>
                         </table>
@@ -93,7 +106,80 @@
              </div>
         </div>
         <div class="row" style="margin-top: 10px;">
-            <div class="col-md-12">
+            <div class="col-md-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Targeting</h3>
+                    </div>
+                    <div class="panel-body">
+                        <legend>Geo Locations</legend>
+                        <ul class="list-group">
+                            {{#each geolocs}}
+                                <li class="list-group-item">{{Name}} ({{Nmb}})</li>
+                            {{/each}}
+                        </ul>
+                        <p class="text-success">
+                            <em>This is exclude list:</em> <strong>{{GeoLocsExclude}}</strong>
+                        </p>
+                        <legend>Web Sites</legend>
+                        <ul class="list-group">
+                            {{#each sites}}
+                                <li class="list-group-item">{{Name}} ({{Nmb}})</li>
+                            {{/each}}
+                        </ul>
+                        <p class="text-success">
+                            <em>This is exclude list:</em> <strong>{{SitesExclude}}</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">TNS Data</h3>
+                    </div>
+                    <div class="panel-body">
+                        <legend>TNS Articles</legend>
+                        <ul class="list-group">
+                            {{#each articles}}
+                                <li class="list-group-item">{{Name}} ({{Nmb}})</li>
+                            {{/each}}
+                        </ul>
+                        <legend>TNS Brands</legend>
+                        <ul class="list-group">
+                            {{#each brands}}
+                                <li class="list-group-item">{{Name}} ({{Nmb}})</li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-6">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Macros</h3>
+                    </div>
+                    <table class="table table-condensed table-striped table-bordered">
+                        <thead>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Value</th>
+                        </thead>
+                        <tbody>
+                        {{#each macros}}
+                            <tr>
+                                <td>{{Name}}</td>
+                                <td>{{MacrosTypeNmb}}</td>
+                                <td>{{Value}}</td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6">
                 <div class="panel panel-warning">
                     <div class="panel-heading">
                         <h3 class="panel-title">Template</h3>

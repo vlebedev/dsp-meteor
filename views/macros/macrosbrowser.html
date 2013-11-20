@@ -10,39 +10,57 @@
                         <div class="row">
 
                             <div class="col-md-4">
-                                <legend>Macro Name</legend>
+                                <legend>Macros</legend>
                                 <div class="input-group">
                                     <div class="input-group-btn">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Choose Macro <span class="caret"></span></button>
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{selected.Name}} ({{selected.Nmb}}) <span class="caret"></span></button>
                                         <ul class="dropdown-menu">
                                             {{#each macros}}
                                                 <li class="{{isSelected}}"><a href="#" class="link-macros-chooser-js">{{Name}} ({{Nmb}})</a></li>
                                             {{/each}}
                                         </ul>
                                     </div><!-- /btn-group -->
-                                    <input type="text" class="form-control namenmb-macros-js" value="{{selected.Name}} ({{selected.Nmb}})"disabled>
                                 </div><!-- /input-group -->
                             </div>
 
                             <div class="col-md-8">
                                 <div id="sticky">
                                     {{#with selected}}
-                                        <legend>Macro Data</legend>
-                                        <ul class="list-group">
-                                            <li class="list-group-item">
-                                                <strong>Caption: </strong>{{Caption}}
-                                            </li>
-                                            <li class="list-group-item">
-                                                <strong>Type: </strong>{{Type}}
-                                            </li>
-                                            <li class="list-group-item">
-                                                <strong>Is Enabled: </strong>
-                                                {{#if selected.IsEnabled}}
-                                                    <strong>Yes</strong>
-                                                {{else}}
-                                                    <strong>No</strong>
-                                                {{/if}}
-                                            </li>
+                                        <legend>Macros Data</legend>
+                                        <table class="table table-condensed table-striped table-bordered">
+                                            <thead>
+                                                <th>Property</th>
+                                                <th>Value</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th>MacrosNmb</th>
+                                                    <td>{{Nmb}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>MacrosName</th>
+                                                    <td>{{Name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Caption</th>
+                                                    <td>{{Caption}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>MacrosType</th>
+                                                    <td>{{Type}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Is Enabled</th>
+                                                    <td>
+                                                        {{#if IsEnabled}}
+                                                            <strong>Yes</strong>
+                                                        {{else}}
+                                                            <strong>No</strong>
+                                                        {{/if}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     {{/with}}
                                 </div>
                             </div>

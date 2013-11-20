@@ -36,15 +36,14 @@ Template.geolocs.events
         if r.test(item)
             [_, nmb] = r.exec(item)
             nmb = parseInt(nmb)
-            Meteor.call 'updateGeoLocsList', cnmb, nmb, null
+            Meteor.call 'updateGeoLocsList', cnmb, nmb, false, null
 
     'click .targeting-geolocs-remove-js': (e) ->
-        nmb = -@Nmb
         cnmb = Session.get('edit_creative')
-        Meteor.call 'updateGeoLocsList', cnmb, nmb, null
+        Meteor.call 'updateGeoLocsList', cnmb, @Nmb, true, null
 
     'click .targeting-geolocs-update-js': (e) ->
         excl = $('.targeting-geolocs-exclude-js').prop('checked')
         cnmb = Session.get('edit_creative')
-        Meteor.call 'updateGeoLocsList', cnmb, 0, excl, (err, res) ->
+        Meteor.call 'updateGeoLocsList', cnmb, 0, false, excl, (err, res) ->
             CoffeeAlerts.success "Creative's Geo Locations have been succefully updated!"
